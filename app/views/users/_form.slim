@@ -5,4 +5,5 @@
       == form.input :name,  class: "form-control"
       == form.input :email
       == form.input :password
+      == form.input :status, collection: User.statuses, include_blank: false
       == form.submit :submit, class: 'btn btn-default'

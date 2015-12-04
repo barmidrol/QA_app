@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy, :activate]
+  before_action :authenticate_user!
+  before_action :admin_user, only: [:edit, :update, :destroy, :activate]
 
   def index
     if params[:approved] == "false"
@@ -16,8 +18,9 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user.update(user_params)
-    redirect_to users_path, notice: 'Success!'
+    if @user.update(user_params)
+      redirect_to users_path, notice: 'Success!'
+    end
   end
 
   def destroy
@@ -25,21 +28,21 @@ class UsersController < ApplicationController
   end
 
   def activate
-    if current_user.admin
-      @user.activate_account!
-      redirect_to users_path
-    else
-      redirect_to :back
-    end
+    @user.activate_account!
+    redirect_to users_path
   end
 
   private
+
+    def admin_user
+      redirect_to :back, alert: "Insufficient rights!" unless current_user.admin?
+    end
 
     def set_user
       @user = User.find(params[:id])
     end
 
     def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation, :approved)
+      params.require(:user).permit(:name, :email, :password, :password_confirmation, :status)
     end
 end
