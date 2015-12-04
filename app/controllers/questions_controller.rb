@@ -1,6 +1,6 @@
 class QuestionsController < ApplicationController
   before_action :admin_user, only: [:create, :new]
-  before_action :set_question, only: [:show, :edit, :destroy]
+  before_action :set_question, only: [:show, :edit, :destroy, :update]
   before_action :authenticate_user!
 
   def index
@@ -18,14 +18,17 @@ class QuestionsController < ApplicationController
     @question = Question.new
   end
 
-  def show
-  end
-
   def edit
   end
 
   def destroy
     redirect_to questions_path if @question.destroy
+  end
+
+  def update
+    if @question.update(question_params)
+      redirect_to questions_path, notice: 'Success!'
+    end
   end
 
   private
@@ -35,7 +38,7 @@ class QuestionsController < ApplicationController
     end
 
     def question_params
-      params.require(:question).permit(:content)
+      params.require(:question).permit(:content, :category_id)
     end
 
 end

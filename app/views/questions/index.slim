@@ -15,6 +15,7 @@
         tr
           th ID
           th Content
+          th Category
           th Actions
       tbody
         - @questions.each do |q|
@@ -23,7 +24,9 @@
             td 
               == q.id
             td 
-              == link_to q.content, question_answer_path(q, @answer)
+              == q.content
+            td
+              == q.category.try(:name)
             td
               == link_to 'Destroy', question_path(q), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger'
               == link_to 'Edit', edit_question_path(q), :class => 'btn btn-mini btn-default'
