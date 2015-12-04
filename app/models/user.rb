@@ -2,6 +2,10 @@ class User < ActiveRecord::Base
   validates :name, :email, :password, presence: true
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+
+  has_many :answers
+  has_many :questions, through: :answers
+
   def self.statuses 
     ['Newbie', 'User', 'Trusted', 'VIP']
   end

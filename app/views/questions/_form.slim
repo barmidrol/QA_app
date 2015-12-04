@@ -1,0 +1,6 @@
+.row
+  .col-md-3
+  .col-md-6
+    == simple_form_for @question, :defaults => { :wrapper_html => { :class => 'form-group' }, :input_html => { :class => 'form-control' } }, validate: true do |form|
+      == form.input :content, class: "form-control"
+      == form.submit :submit, class: 'btn btn-default'
