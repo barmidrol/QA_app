@@ -1,0 +1,9 @@
+.row
+  .col-md-3
+  .col-md-6
+    h2 == @question.content
+    br
+    h3 Your answer:
+    == simple_form_for [@question, @answer], :defaults => { :wrapper_html => { :class => 'form-group' }, :input_html => { :class => 'form-control' } }, validate: true do |form|
+      == form.input :content, as: :text, label: false, class: "form-control"
+      == form.submit :submit, class: 'btn btn-default'

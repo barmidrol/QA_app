@@ -33,11 +33,7 @@ class UsersController < ApplicationController
   end
 
   private
-
-    def admin_user
-      redirect_to :back, alert: "Insufficient rights!" unless current_user.admin?
-    end
-
+  
     def set_user
       @user = User.find(params[:id])
     end

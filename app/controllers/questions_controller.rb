@@ -1,7 +1,12 @@
 class QuestionsController < ApplicationController
+  before_action :admin_user, only: [:create, :new]
+  before_action :set_question, only: [:show, :edit, :destroy]
+  before_action :authenticate_user!
 
   def index
     @questions = Question.all
+    @questions = current_user.questions if params[:filter] == 'answered'
+    @questions = @questions - current_user.questions if params[:filter] == 'unanswered'
   end
 
   def create
@@ -13,7 +18,21 @@ class QuestionsController < ApplicationController
     @question = Question.new
   end
 
+  def show
+  end
+
+  def edit
+  end
+
+  def destroy
+    redirect_to questions_path if @question.destroy
+  end
+
   private
+
+    def set_question
+      @question = Question.find(params[:id])
+    end
 
     def question_params
       params.require(:question).permit(:content)

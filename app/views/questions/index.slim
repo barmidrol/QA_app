@@ -1,2 +1,29 @@
-- @questions.each do |q|
-  == q.content
+.col-md-10.col-md-offset-1
+  - if !current_user.admin?
+    h2 Questions:
+    .list-group
+      - @questions.each do |q|
+        - @answer = Answer.where(question_id: q.id, user_id: current_user.id).first
+        - if current_user.questions.include? q
+          a.list-group-item.list-group-item-success href="#{question_answer_path(q, @answer)}" == q.content
+        - else
+          a.list-group-item href="#{new_question_answer_path(q)}" == q.content
+  - else
+    h2 Questions:
+    table.table.table-striped
+      thead
+        tr
+          th ID
+          th Content
+          th Actions
+      tbody
+        - @questions.each do |q|
+          - @answer = Answer.where(question_id: q.id, user_id: current_user.id).first
+          tr
+            td 
+              == q.id
+            td 
+              == link_to q.content, question_answer_path(q, @answer)
+            td
+              == link_to 'Destroy', question_path(q), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger'
+              == link_to 'Edit', edit_question_path(q), :class => 'btn btn-mini btn-default'

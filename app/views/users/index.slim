@@ -1,28 +1,32 @@
-h1 Users
-table.table.table-striped
-  thead
-    tr
-      th ID
-      th Email
-      th Status
-      th Last sign in at
-      th Actions
-  tbody
-    - @users.each do |user|
+.col-md-10.col-md-offset-1
+  h1 Users
+  table.table.table-striped
+    thead
       tr
-        td ==user.id
-        td
-          - if user.email.blank?
-            == user.name
-          - else
-            == user.email
-        td
-          == user.status
-        td == user.last_sign_in_at
-        td
-          == link_to 'Destroy', user_path(user), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger'
-          == link_to 'Edit', edit_user_path(user), :class => 'btn btn-mini btn-default'
-          - if !user.approved?
-            == link_to 'Activate', activate_path(user), :method => :post, :class => 'btn btn-mini btn-info'
+        th ID
+        th Email
+        th Status
+        th Answered
+        th Last sign in at
+        th Actions
+    tbody
+      - @users.each do |user|
+        tr
+          td ==user.id
+          td
+            - if user.email.blank?
+              == user.name
+            - else
+              == user.email
+          td
+            == user.status
+          td
+            == user.questions.count
+          td == user.last_sign_in_at
+          td
+            == link_to 'Destroy', user_path(user), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger'
+            == link_to 'Edit', edit_user_path(user), :class => 'btn btn-mini btn-default'
+            - if !user.approved?
+              == link_to 'Activate', activate_path(user), :method => :post, :class => 'btn btn-mini btn-info'
 
 

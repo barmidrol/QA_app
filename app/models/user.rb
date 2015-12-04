@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :answers
+  has_many :answers, dependent: :destroy
   has_many :questions, through: :answers
 
   def self.statuses 
