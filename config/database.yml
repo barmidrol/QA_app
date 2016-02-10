@@ -19,6 +19,7 @@ default: &default
   encoding: unicode
   host: localhost
   username: pguser
+  password: easypassword
   # For details on connection pooling, see rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   # pool: 5
@@ -83,5 +84,3 @@ test:
 production:
   <<: *default
   database: test_task_production
-  username: pguser
-  password: <%= ENV['TEST_TASK_DATABASE_PASSWORD'] %>
