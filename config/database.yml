@@ -84,4 +84,4 @@ production:
   <<: *default
   database: test_task_production
   username: pguser
-  #password: <%= ENV['TEST_TASK_DATABASE_PASSWORD'] %>
+  password: <%= ENV['TEST_TASK_DATABASE_PASSWORD'] %>
