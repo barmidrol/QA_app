@@ -14,6 +14,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'puma'
+gem 'geocoder'
 
 group :development, :test do
   gem 'byebug'

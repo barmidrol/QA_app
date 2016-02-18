@@ -9,5 +9,6 @@ Rails.application.routes.draw do
 
   post "users/:id/activate", to: "users#activate", as: 'activate'
   root 'questions#index'
+  get '/position', to: 'geo#show'
 
 end
