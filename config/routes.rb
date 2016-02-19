@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :categories
 
   post "users/:id/activate", to: "users#activate", as: 'activate'
-  root 'questions#index'
+  root 'static_pages#index'
   get '/position', to: 'geo#show'
 
 end
